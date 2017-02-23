@@ -13,7 +13,13 @@ class MonologStackdriverHandler extends AbstractProcessingHandler
      */
     protected $options;
 
-    public function __construct($googleProjectId, $logName, $options, $logging=null)
+    /**
+     * @param string $googleProjectId Google Project Id
+     * @param string $logName         The name of the log to write entries to.
+     * @param array $options          Configuration options.
+     * @param object $logging         Logging Object(for test)
+     */
+    public function __construct($googleProjectId, $logName='global', $options=[], $logging=null)
     {
         if (is_null($logging)) {
             $logging = new LoggingClient([

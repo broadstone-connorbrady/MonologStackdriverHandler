@@ -14,7 +14,7 @@ $ composer require asiagohan/monolog-stackdriver-handler
 edit bootstrap/app.php as below:
 ```php
 $app->configureMonologUsing(function ($monolog) {
-     $stackdriverHandler = new MonologStackdriverHandler('googleProjectId');
+     $stackdriverHandler = new MonologStackdriverHandler\MonologStackdriverHandler('googleProjectId');
      $monolog->pushHandler($stackdriverHandler);
 });
 ```
@@ -22,15 +22,17 @@ $app->configureMonologUsing(function ($monolog) {
 If you want to change the name of the log or other options,
 ```php
 $app->configureMonologUsing(function ($monolog) {
-     $stackdriverHandler = new MonologStackdriverHandler(
-         'googleProjectId',
-         'the-name-of-the-log',
-         [
-            'labels' => [
-               'foo' => 'bar',
-            ],
-         ]
-     );
+    $stackdriverHandler = new MonologStackdriverHandler\MonologStackdriverHandler(
+       'googleProjectId',
+       'logName',
+       [
+           'resource' => [
+               'labels' => [
+                   'foo' => 'bar',
+               ],
+           ],
+       ]
+    );
      $monolog->pushHandler($stackdriverHandler);
 });
 ```

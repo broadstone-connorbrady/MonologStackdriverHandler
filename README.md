@@ -1,4 +1,4 @@
-![build status]](https://travis-ci.org/asiagohan/MonologStackdriverHandler.svg?branch=master)
+![build status](https://travis-ci.org/asiagohan/MonologStackdriverHandler.svg?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/asiagohan/MonologStackdriverHandler/badge.svg?branch=master)](https://coveralls.io/github/asiagohan/MonologStackdriverHandler?branch=master)
 # MonologStackdriverHandler
 Monolog Stackdriver Handler is Stackdriver handler for Monolog. It will send Stackdriver a log when an app logs something.  

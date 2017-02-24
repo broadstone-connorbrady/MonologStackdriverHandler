@@ -1,3 +1,5 @@
+![build status]](https://travis-ci.org/asiagohan/MonologStackdriverHandler.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/asiagohan/MonologStackdriverHandler/badge.svg?branch=master)](https://coveralls.io/github/asiagohan/MonologStackdriverHandler?branch=master)
 # MonologStackdriverHandler
 Monolog Stackdriver Handler is Stackdriver handler for Monolog. It will send Stackdriver a log when an app logs something.  
 To use this handler, you should have Google Project Id. For more details, check [here](http://www.stackdriver.com/)
@@ -17,7 +19,7 @@ $app->configureMonologUsing(function ($monolog) {
 });
 ```
 
-If you want to change the name of the log to write entries to or other options,
+If you want to change the name of the log or other options,
 ```php
 $app->configureMonologUsing(function ($monolog) {
      $stackdriverHandler = new MonologStackdriverHandler(

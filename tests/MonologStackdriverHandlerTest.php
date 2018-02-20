@@ -1,8 +1,9 @@
 <?php
 
-use \Mockery;
-
+use Google\Cloud\Logging\Logger;
+use Google\Cloud\Logging\LoggingClient;
 use MonologStackdriverHandler\MonologStackdriverHandler;
+use Prophecy\Argument;
 
 class MonologStackdriverHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -46,6 +47,29 @@ class MonologStackdriverHandlerTest extends \PHPUnit_Framework_TestCase
             ->andReturn($loggerMock);
 
         $handler = new MonologStackdriverHandler($this->googleProjectId, $this->logName, $this->options, $loggingMock);
+        $handler->write($this->record);
+    }
+
+    public function testWriteWithGeneratedTimestamp()
+    {
+        $logger = $this->prophesize(Logger::class);
+        $optionsArgument = function ($options) {
+            self::assertArrayHasKey('timestamp', $options);
+            self::assertRegExp('/\d{2}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/', $options['timestamp']);
+
+            return true;
+        };
+        $logger->write($this->formattedText, Argument::that($optionsArgument))->shouldBeCalled();
+
+        $logging = $this->prophesize(LoggingClient::class);
+        $logging->logger($this->logName)->shouldBeCalled()->willReturn($logger->reveal());
+
+        $handler = new MonologStackdriverHandler(
+            $this->googleProjectId,
+            $this->logName,
+            $this->options,
+            $logging->reveal()
+        );
         $handler->write($this->record);
     }
 }
